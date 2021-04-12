@@ -11,14 +11,12 @@ namespace InvestorStore.Catalog.Domain
         public bool IsActive { get; private set; }
         public DateTimeOffset CreatedAt { get; private set; }
         public decimal Price { get; private set; }
-        
         public int AmountInStock { get; private set; }
-        
         public Category Category { get; private set; }
-        
+        public Dimensions Dimensions { get; private set; }
         public Guid CategoryId { get; private set; }
 
-        public Product(string name, string description, string image, bool isActive, DateTimeOffset createdAt, decimal price, Guid categoryId)
+        public Product(string name, string description, string image, bool isActive, DateTimeOffset createdAt, decimal price, Guid categoryId, Dimensions dimensions)
         {
             Name = name;
             Description = description;
@@ -27,6 +25,7 @@ namespace InvestorStore.Catalog.Domain
             CreatedAt = createdAt;
             Price = price;
             CategoryId = categoryId;
+            Dimensions = dimensions;
             
             Validate();
         }
