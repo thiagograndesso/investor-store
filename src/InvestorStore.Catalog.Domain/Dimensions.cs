@@ -19,9 +19,9 @@ namespace InvestorStore.Catalog.Domain
 
         public void Validate()
         {
-            AssertionConcern.ValidateIfLessThan(Height, 1, $"The field {nameof(Height)} needs to be at least 1");
-            AssertionConcern.ValidateIfLessThan(Width, 1, $"The field {nameof(Width)} needs to be at least 1");
-            AssertionConcern.ValidateIfLessThan(Depth, 1, $"The field {nameof(Depth)} needs to be at least 1");
+            AssertionConcern.ThrowIfLessThan(Height, 1, $"The field {nameof(Height)} needs to be at least 1");
+            AssertionConcern.ThrowIfLessThan(Width, 1, $"The field {nameof(Width)} needs to be at least 1");
+            AssertionConcern.ThrowIfLessThan(Depth, 1, $"The field {nameof(Depth)} needs to be at least 1");
         }
     }
 }

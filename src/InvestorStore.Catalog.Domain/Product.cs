@@ -72,11 +72,11 @@ namespace InvestorStore.Catalog.Domain
 
         public void Validate()
         {
-             AssertionConcern.ValidateIfEmpty(Name, $"The field {nameof(Name)} cannot be empty");
-             AssertionConcern.ValidateIfEmpty(Description, $"The field {nameof(Description)} cannot be empty");
-             AssertionConcern.ValidateIfEmpty(Image, $"The field {nameof(Image)} cannot be empty");
-             AssertionConcern.ValidateIfDifferent(CategoryId, Guid.Empty, $"The field {nameof(CategoryId)} cannot be empty");
-             AssertionConcern.ValidateIfLessThan(Price, 0, $"The field {nameof(Price)} cannot be less than zero");
+             AssertionConcern.ThrowIfEmpty(Name, $"The field {nameof(Name)} cannot be empty");
+             AssertionConcern.ThrowIfEmpty(Description, $"The field {nameof(Description)} cannot be empty");
+             AssertionConcern.ThrowIfEmpty(Image, $"The field {nameof(Image)} cannot be empty");
+             AssertionConcern.ThrowIfEqual(CategoryId, Guid.Empty, $"The field {nameof(CategoryId)} cannot be empty");
+             AssertionConcern.ThrowIfLessThan(Price, 0, $"The field {nameof(Price)} cannot be less than zero");
         }
     }
 }

@@ -20,6 +20,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestorStore.Core", "src\I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestorStore.Catalog.Domain", "src\InvestorStore.Catalog.Domain\InvestorStore.Catalog.Domain.csproj", "{92CAAE05-A005-4BAD-8984-750617255399}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AB9CF84D-4F7F-4BAE-838E-A35FB8BA4660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestorStore.Catalog.Domain.Tests", "tests\InvestorStore.Catalog.Domain.Tests\InvestorStore.Catalog.Domain.Tests.csproj", "{78F38484-A78A-4BC8-A6A0-ECA5C014CF13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +38,8 @@ Global
 		{83788E3E-A99F-41CA-A384-39952C57671C} = {57D34879-2CCA-4686-9265-9A17D91A3709}
 		{67E9DE93-C809-48DF-93D2-B4A6ABDF9788} = {ADF039EB-C7AC-4EEA-A1C7-25EDAC43E97C}
 		{92CAAE05-A005-4BAD-8984-750617255399} = {09671CA9-5178-4739-9A10-323270DA0279}
+		{AB9CF84D-4F7F-4BAE-838E-A35FB8BA4660} = {09671CA9-5178-4739-9A10-323270DA0279}
+		{78F38484-A78A-4BC8-A6A0-ECA5C014CF13} = {AB9CF84D-4F7F-4BAE-838E-A35FB8BA4660}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{67E9DE93-C809-48DF-93D2-B4A6ABDF9788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +50,9 @@ Global
 		{92CAAE05-A005-4BAD-8984-750617255399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92CAAE05-A005-4BAD-8984-750617255399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92CAAE05-A005-4BAD-8984-750617255399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78F38484-A78A-4BC8-A6A0-ECA5C014CF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F38484-A78A-4BC8-A6A0-ECA5C014CF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78F38484-A78A-4BC8-A6A0-ECA5C014CF13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78F38484-A78A-4BC8-A6A0-ECA5C014CF13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

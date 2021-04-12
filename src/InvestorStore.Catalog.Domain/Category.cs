@@ -22,8 +22,8 @@ namespace InvestorStore.Catalog.Domain
 
         public void Validate()
         {
-            AssertionConcern.ValidateIfEmpty(Name, $"The field {nameof(Name)} cannot be empty");
-            AssertionConcern.ValidateIfEqual(Code, 0, $"The field {nameof(Code)} cannot be zero");
+            AssertionConcern.ThrowIfEmpty(Name, $"The field {nameof(Name)} cannot be empty");
+            AssertionConcern.ThrowIfEqual(Code, 0, $"The field {nameof(Code)} cannot be zero");
         }
     }
 }

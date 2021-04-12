@@ -4,7 +4,7 @@ namespace InvestorStore.Core.DomainObjects
 {
     public class AssertionConcern
     {
-        public static void ValidateIfEqual(object obj1, object obj2, string message)
+        public static void ThrowIfEqual(object obj1, object obj2, string message)
         {
             if (obj1.Equals(obj2))
             {
@@ -12,7 +12,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfDifferent(object obj1, object obj2, string message)
+        public static void ThrowIfDifferent(object obj1, object obj2, string message)
         {
             if (!obj1.Equals(obj2))
             {
@@ -20,7 +20,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfDifferent(string pattern, string value, string message)
+        public static void ThrowIfDifferent(string pattern, string value, string message)
         {
             var regex = new Regex(pattern);
 
@@ -48,7 +48,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
         
-        public static void ValidateIfEmpty(string value, string message)
+        public static void ThrowIfEmpty(string value, string message)
         {
             if (value == null || value.Trim().Length == 0)
             {
@@ -56,7 +56,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfNull(object obj1, string message)
+        public static void ThrowIfNull(object obj1, string message)
         {
             if (obj1 == null)
             {
@@ -104,7 +104,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfLessThan(long value, long min, string message)
+        public static void ThrowIfLessThan(long value, long min, string message)
         {
             if (value < min)
             {
@@ -112,7 +112,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfLessThan(double value, double min, string message)
+        public static void ThrowIfLessThan(double value, double min, string message)
         {
             if (value < min)
             {
@@ -120,7 +120,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfLessThan(decimal value, decimal min, string message)
+        public static void ThrowIfLessThan(decimal value, decimal min, string message)
         {
             if (value < min)
             {
@@ -128,7 +128,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfLessThan(int value, int min, string message)
+        public static void ThrowIfLessThan(int value, int min, string message)
         {
             if (value < min)
             {
@@ -136,7 +136,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfFalse(bool boolValue, string message)
+        public static void ThrowIfFalse(bool boolValue, string message)
         {
             if (!boolValue)
             {
@@ -144,7 +144,7 @@ namespace InvestorStore.Core.DomainObjects
             }
         }
 
-        public static void ValidateIfTrue(bool boolValue, string message)
+        public static void ThrowIfTrue(bool boolValue, string message)
         {
             if (boolValue)
             {
