@@ -11,7 +11,7 @@ namespace InvestorStore.Catalog.Domain
         public bool IsActive { get; private set; }
         public DateTimeOffset CreatedAt { get; private set; }
         public decimal Price { get; private set; }
-        public int AmountInStock { get; private set; }
+        public int InventoryAmount { get; private set; }
         public Category Category { get; private set; }
         public Dimensions Dimensions { get; private set; }
         public Guid CategoryId { get; private set; }
@@ -45,29 +45,29 @@ namespace InvestorStore.Catalog.Domain
             Description = description;
         }
 
-        public void DebitStock(int amount)
+        public void DebitInventory(int amount)
         {
             if (amount < 0)
             {
                 amount *= -1;
             }
 
-            if (!ContainsStock(amount))
+            if (!ContainsInventory(amount))
             {
                 throw new DomainException("Insufficient stock");
             }
 
-            AmountInStock -= amount;
+            InventoryAmount -= amount;
         }
         
-        public void RefillStock(int amount)
+        public void RefillInventory(int amount)
         {
-            AmountInStock += amount;
+            InventoryAmount += amount;
         } 
         
-        public bool ContainsStock(int amount)
+        public bool ContainsInventory(int amount)
         {
-            return AmountInStock >= amount;
+            return InventoryAmount >= amount;
         }
 
         public void Validate()
