@@ -15,6 +15,8 @@ namespace InvestorStore.Catalog.Domain
         public Category Category { get; private set; }
         public Dimensions Dimensions { get; private set; }
         public Guid CategoryId { get; private set; }
+        
+        protected Product() { }
 
         public Product(string name, string description, string image, bool isActive, DateTimeOffset createdAt, decimal price, Guid categoryId, Dimensions dimensions)
         {
