@@ -2,7 +2,9 @@ using InvestorStore.Catalog.Application.Services;
 using InvestorStore.Catalog.Data;
 using InvestorStore.Catalog.Data.Repositories;
 using InvestorStore.Catalog.Domain;
+using InvestorStore.Catalog.Domain.Events;
 using InvestorStore.Core.Bus;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InvestorStore.WebApp.MVC.Config
@@ -19,6 +21,10 @@ namespace InvestorStore.WebApp.MVC.Config
             services.AddScoped<IProductAppService, ProductAppService>();
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<CatalogContext>();
+            
+            // Events
+            services.AddScoped<INotificationHandler<ProductBelowInventoryEvent>, ProductEventHandler>();
+
         }
     }
 }
