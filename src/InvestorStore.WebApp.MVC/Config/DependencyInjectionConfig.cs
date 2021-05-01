@@ -4,6 +4,7 @@ using InvestorStore.Catalog.Data.Repositories;
 using InvestorStore.Catalog.Domain;
 using InvestorStore.Catalog.Domain.Events;
 using InvestorStore.Core.Bus;
+using InvestorStore.Sales.Application.Commands;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +26,8 @@ namespace InvestorStore.WebApp.MVC.Config
             // Events
             services.AddScoped<INotificationHandler<ProductBelowInventoryEvent>, ProductEventHandler>();
 
+            // Sales Domain
+            services.AddScoped<IRequestHandler<AddOrderItemCommand, bool>, OrderCommandHandler>();
         }
     }
 }

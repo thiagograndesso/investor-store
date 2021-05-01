@@ -23,6 +23,7 @@
       <ProjectReference Include="..\InvestorStore.Catalog.Application\InvestorStore.Catalog.Application.csproj" />
       <ProjectReference Include="..\InvestorStore.Catalog.Data\InvestorStore.Catalog.Data.csproj" />
       <ProjectReference Include="..\InvestorStore.Core\InvestorStore.Core.csproj" />
+      <ProjectReference Include="..\InvestorStore.Sales.Application\InvestorStore.Sales.Application.csproj" />
     </ItemGroup>
 
 </Project>
