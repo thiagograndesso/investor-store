@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using InvestorStore.Catalog.Application.AutoMapper;
 using InvestorStore.Catalog.Data;
+using InvestorStore.Sales.Data;
 using InvestorStore.WebApp.MVC.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -35,6 +36,10 @@ namespace InvestorStore.WebApp.MVC
                     Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddDbContext<CatalogContext>(options =>
+                options.UseSqlite(
+                    Configuration.GetConnectionString("DefaultConnection")));
+                    
+            services.AddDbContext<SalesContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
             

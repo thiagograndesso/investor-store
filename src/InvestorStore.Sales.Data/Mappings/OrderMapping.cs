@@ -13,7 +13,7 @@ namespace InvestorStore.Sales.Data.Mappings
             // 1 : N => Order : OrderItems
             builder.HasMany(c => c.OrderItems)
                 .WithOne(c => c.Order)
-                .HasForeignKey(c => c.Order);
+                .HasForeignKey(c => c.OrderId);
 
             builder.ToTable("Orders");
         }

@@ -9,13 +9,12 @@ namespace InvestorStore.Sales.Data.Mappings
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
             builder.HasKey(c => c.Id);
-
-
+            
             builder.Property(c => c.ProductName)
                 .IsRequired()
                 .HasColumnType("varchar(250)");
 
-            // 1 : N => Order : Payment
+            // 1 : N => Order : OrderItem
             builder.HasOne(c => c.Order)
                 .WithMany(c => c.OrderItems);
 
