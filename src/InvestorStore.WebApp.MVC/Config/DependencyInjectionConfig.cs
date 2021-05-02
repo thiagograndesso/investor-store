@@ -5,6 +5,9 @@ using InvestorStore.Catalog.Domain;
 using InvestorStore.Catalog.Domain.Events;
 using InvestorStore.Core.Bus;
 using InvestorStore.Sales.Application.Commands;
+using InvestorStore.Sales.Data;
+using InvestorStore.Sales.Data.Repository;
+using InvestorStore.Sales.Domain;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +18,7 @@ namespace InvestorStore.WebApp.MVC.Config
         public static void RegisterServices(this IServiceCollection services)
         {
             // Domain Bus (Mediator)
-            services.AddScoped<IMediatrHandler, MediatrHandler>();
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
             
             // Catalog Domain
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -28,6 +31,9 @@ namespace InvestorStore.WebApp.MVC.Config
 
             // Sales Domain
             services.AddScoped<IRequestHandler<AddOrderItemCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<SalesContext>();
+
         }
     }
 }

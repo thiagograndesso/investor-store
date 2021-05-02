@@ -8,9 +8,9 @@ namespace InvestorStore.Catalog.Domain
     public class InventoryService : IInventoryService
     {
         private readonly IProductRepository _repository;
-        private readonly IMediatrHandler _bus;
+        private readonly IMediatorHandler _bus;
 
-        public InventoryService(IProductRepository repository, IMediatrHandler bus)
+        public InventoryService(IProductRepository repository, IMediatorHandler bus)
         {
             _repository = repository;
             _bus = bus;

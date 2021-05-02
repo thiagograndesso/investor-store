@@ -17,5 +17,10 @@ namespace InvestorStore.Core.Bus
         {
             await _mediator.Publish(@event);
         }
+
+        public async Task<bool> SendCommand<T>(T command) where T : Command
+        {
+            return await _mediator.Send(command);
+        }
     }
 }

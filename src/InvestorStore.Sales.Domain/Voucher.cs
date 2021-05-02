@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
+using InvestorStore.Core.DomainObjects;
 
 namespace InvestorStore.Sales.Domain
 {
-    public class Voucher
+    public class Voucher : Entity
     {
         public string Code { get; set; }
         public decimal? Percentage { get; set; }
