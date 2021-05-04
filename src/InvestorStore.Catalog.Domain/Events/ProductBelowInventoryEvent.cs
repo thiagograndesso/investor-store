@@ -1,5 +1,6 @@
 using System;
 using InvestorStore.Core.DomainObjects;
+using InvestorStore.Core.Messages.CommonMessages.DomainEvents;
 
 namespace InvestorStore.Catalog.Domain.Events
 {

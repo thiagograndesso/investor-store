@@ -1,7 +1,6 @@
 using System;
-using InvestorStore.Core.Messages;
 
-namespace InvestorStore.Core.DomainObjects
+namespace InvestorStore.Core.Messages.CommonMessages.DomainEvents
 {
     public class DomainEvent : Event
     {

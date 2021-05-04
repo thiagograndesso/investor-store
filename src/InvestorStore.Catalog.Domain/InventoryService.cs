@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using InvestorStore.Catalog.Domain.Events;
-using InvestorStore.Core.Bus;
+using InvestorStore.Core.Communication.Mediator;
 
 namespace InvestorStore.Catalog.Domain
 {

@@ -40,7 +40,7 @@ namespace InvestorStore.Sales.Data.Repository
                 .Collection(i => i.OrderItems)
                 .LoadAsync();
 
-            if (order.VoucherId != null)
+            if (order.VoucherId != Guid.Empty)
             {
                 await _context.Entry(order)
                     .Reference(i => i.Voucher)

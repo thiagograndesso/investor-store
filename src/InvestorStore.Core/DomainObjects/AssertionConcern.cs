@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace InvestorStore.Core.DomainObjects
 {
-    public class AssertionConcern
+    public static class AssertionConcern
     {
         public static void ThrowIfEqual(object obj1, object obj2, string message)
         {

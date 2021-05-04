@@ -3,7 +3,8 @@ using InvestorStore.Catalog.Data;
 using InvestorStore.Catalog.Data.Repositories;
 using InvestorStore.Catalog.Domain;
 using InvestorStore.Catalog.Domain.Events;
-using InvestorStore.Core.Bus;
+using InvestorStore.Core.Communication.Mediator;
+using InvestorStore.Core.Messages.CommonMessages.Notifications;
 using InvestorStore.Sales.Application.Commands;
 using InvestorStore.Sales.Data;
 using InvestorStore.Sales.Data.Repository;
@@ -17,8 +18,11 @@ namespace InvestorStore.WebApp.MVC.Config
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            // Domain Bus (Mediator)
+            // Mediator
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+            
+            // Notifications
+            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
             
             // Catalog Domain
             services.AddScoped<IProductRepository, ProductRepository>();

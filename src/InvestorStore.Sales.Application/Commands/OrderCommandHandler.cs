@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using InvestorStore.Core.Communication.Mediator;
 using InvestorStore.Core.Messages;
+using InvestorStore.Core.Messages.CommonMessages.Notifications;
 using InvestorStore.Sales.Domain;
 using MediatR;
 
@@ -12,10 +14,12 @@ namespace InvestorStore.Sales.Application.Commands
         IRequestHandler<AddOrderItemCommand, bool>
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IMediatorHandler _mediatorHandler;
 
-        public OrderCommandHandler(IOrderRepository orderRepository)
+        public OrderCommandHandler(IOrderRepository orderRepository, IMediatorHandler mediatorHandler)
         {
             _orderRepository = orderRepository;
+            _mediatorHandler = mediatorHandler;
         }
         
         public async Task<bool> Handle(AddOrderItemCommand command, CancellationToken cancellationToken)
@@ -62,7 +66,7 @@ namespace InvestorStore.Sales.Application.Commands
 
             foreach (var error in command.ValidationResult.Errors)
             {
-                // Throw event error
+                _mediatorHandler.PublishNotification(new DomainNotification(command.MessageType, error.ErrorMessage));
             }
 
             return false;
