@@ -37,9 +37,13 @@ namespace InvestorStore.Sales.Data
                 }
             }
 
-            await _mediatorHandler.PublishEvents(this);
+            var success = await base.SaveChangesAsync() > 0;
+            if (success)
+            {
+                await _mediatorHandler.PublishEvents(this);
+            }
             
-            return await base.SaveChangesAsync() > 0;       
+            return success;       
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
