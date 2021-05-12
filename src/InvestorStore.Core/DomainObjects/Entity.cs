@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using InvestorStore.Core.Messages;
 
 namespace InvestorStore.Core.DomainObjects
 {
@@ -6,9 +8,29 @@ namespace InvestorStore.Core.DomainObjects
     {
         public Guid Id { get; set; }
         
+        private List<Event> _events;
+
+        public IReadOnlyCollection<Event> Events => _events?.AsReadOnly();
+        
         protected Entity()
         {
             Id = Guid.NewGuid();
+        }
+
+        public void AddEvent(Event @event)
+        {
+            _events ??= new List<Event>();
+            _events.Add(@event);
+        }
+
+        public void RemoveEvent(Event @event)
+        {
+            _events.Remove(@event);
+        }
+
+        public void ClearEvents()
+        {
+            _events?.Clear();
         }
 
         public override bool Equals(object? obj)

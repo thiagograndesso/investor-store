@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using InvestorStore.Catalog.Domain;
 using InvestorStore.Core.Data;
+using InvestorStore.Core.Messages;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvestorStore.Catalog.Data
@@ -13,6 +14,8 @@ namespace InvestorStore.Catalog.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<Event>();
+            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogContext).Assembly);
         }
 

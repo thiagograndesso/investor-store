@@ -6,6 +6,7 @@ using InvestorStore.Catalog.Domain.Events;
 using InvestorStore.Core.Communication.Mediator;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
 using InvestorStore.Sales.Application.Commands;
+using InvestorStore.Sales.Application.Events;
 using InvestorStore.Sales.Data;
 using InvestorStore.Sales.Data.Repository;
 using InvestorStore.Sales.Domain;
@@ -32,6 +33,9 @@ namespace InvestorStore.WebApp.MVC.Config
             
             // Events
             services.AddScoped<INotificationHandler<ProductBelowInventoryEvent>, ProductEventHandler>();
+            services.AddScoped<INotificationHandler<DraftOrderCreatedEvent>, OrderEventHandler>();
+            services.AddScoped<INotificationHandler<OrderUpdatedEvent>, OrderEventHandler>();
+            services.AddScoped<INotificationHandler<OrderItemAddedEvent>, OrderEventHandler>();
 
             // Sales Domain
             services.AddScoped<IRequestHandler<AddOrderItemCommand, bool>, OrderCommandHandler>();

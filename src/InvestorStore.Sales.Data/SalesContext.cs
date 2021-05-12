@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using InvestorStore.Core.Communication.Mediator;
 using InvestorStore.Core.Data;
 using InvestorStore.Core.Messages;
 using InvestorStore.Sales.Domain;
@@ -10,8 +11,11 @@ namespace InvestorStore.Sales.Data
 {
     public class SalesContext : DbContext, IUnitOfWork
     {
-        public SalesContext(DbContextOptions<SalesContext> options) : base(options)
+        private readonly IMediatorHandler _mediatorHandler;
+
+        public SalesContext(DbContextOptions<SalesContext> options, IMediatorHandler mediatorHandler) : base(options)
         {
+            _mediatorHandler = mediatorHandler;
         }
         
         public DbSet<Order> Orders { get; set; }
@@ -32,6 +36,8 @@ namespace InvestorStore.Sales.Data
                     entry.Property("CreatedAt").IsModified = false;
                 }
             }
+
+            await _mediatorHandler.PublishEvents(this);
             
             return await base.SaveChangesAsync() > 0;       
         }

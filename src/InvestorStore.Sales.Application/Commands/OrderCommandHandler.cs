@@ -1,10 +1,10 @@
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using InvestorStore.Core.Communication.Mediator;
 using InvestorStore.Core.Messages;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
+using InvestorStore.Sales.Application.Events;
 using InvestorStore.Sales.Domain;
 using MediatR;
 
@@ -38,6 +38,7 @@ namespace InvestorStore.Sales.Application.Commands
                 order.AddOrderItem(item);
 
                 _orderRepository.Add(order);
+                order.AddEvent(new DraftOrderCreatedEvent(command.CustomerId, order.Id));
             }
             else
             {
@@ -52,8 +53,11 @@ namespace InvestorStore.Sales.Application.Commands
                 {
                     _orderRepository.AddItem(item);
                 }
+                
+                order.AddEvent(new OrderUpdatedEvent(order.CustomerId, order.Id, order.TotalAmount));
             }
             
+            order.AddEvent(new OrderItemAddedEvent(order.CustomerId, order.Id, command.ProductId, command.Amount, command.Quantity));
             return await _orderRepository.UnitOfWork.Commit();
         }
 
