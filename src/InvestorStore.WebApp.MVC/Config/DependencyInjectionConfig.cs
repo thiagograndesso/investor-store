@@ -7,6 +7,7 @@ using InvestorStore.Core.Communication.Mediator;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
 using InvestorStore.Sales.Application.Commands;
 using InvestorStore.Sales.Application.Events;
+using InvestorStore.Sales.Application.Queries;
 using InvestorStore.Sales.Data;
 using InvestorStore.Sales.Data.Repository;
 using InvestorStore.Sales.Domain;
@@ -40,6 +41,7 @@ namespace InvestorStore.WebApp.MVC.Config
             // Sales Domain
             services.AddScoped<IRequestHandler<AddOrderItemCommand, bool>, OrderCommandHandler>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderQueries, OrderQueries>();
             services.AddScoped<SalesContext>();
 
         }

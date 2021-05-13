@@ -171,7 +171,7 @@ namespace InvestorStore.Sales.Domain
         
         public void CancelOrder()
         {
-            OrderStatus = OrderStatus.Canceled;
+            OrderStatus = OrderStatus.Cancelled;
         }
         
         public static class OrderFactory

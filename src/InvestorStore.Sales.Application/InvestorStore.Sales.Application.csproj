@@ -5,10 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Queries" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\InvestorStore.Core\InvestorStore.Core.csproj" />
       <ProjectReference Include="..\InvestorStore.Sales.Domain\InvestorStore.Sales.Domain.csproj" />
     </ItemGroup>

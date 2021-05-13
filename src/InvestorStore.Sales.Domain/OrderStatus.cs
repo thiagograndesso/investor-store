@@ -6,6 +6,6 @@ namespace InvestorStore.Sales.Domain
         Opened = 1,
         Paid = 4,
         Delivered = 5,
-        Canceled = 6
+        Cancelled = 6
     }
 }
