@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
+using FluentValidation;
+using FluentValidation.Results;
 using InvestorStore.Core.DomainObjects;
 
 namespace InvestorStore.Sales.Domain
@@ -20,5 +22,38 @@ namespace InvestorStore.Sales.Domain
         
         // EF relation
         public ICollection<Order> Orders { get; set; }
+        
+        internal ValidationResult ValidateIfApplicable()
+        {
+            return new VoucherApplicableValidation().Validate(this);
+        }
+    }
+    
+    public class VoucherApplicableValidation : AbstractValidator<Voucher>
+    {
+
+        public VoucherApplicableValidation()
+        {
+            RuleFor(c => c.DueDate)
+                .Must(DueDateGreaterThanNow)
+                .WithMessage("This voucher is expired");
+
+            RuleFor(c => c.IsActive)
+                .Equal(true)
+                .WithMessage("This voucher is not valid anymore");
+
+            RuleFor(c => c.IsUsed)
+                .Equal(false)
+                .WithMessage("This voucher has been used already");
+
+            RuleFor(c => c.Quantity)
+                .GreaterThan(0)
+                .WithMessage("This voucher is not available anymore");
+        }
+
+        protected static bool DueDateGreaterThanNow(DateTimeOffset dueDate)
+        {
+            return dueDate >= DateTime.Now;
+        }
     }
 }

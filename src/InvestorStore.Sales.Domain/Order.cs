@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation.Results;
 using InvestorStore.Core.DomainObjects;
 
 namespace InvestorStore.Sales.Domain
@@ -36,11 +37,19 @@ namespace InvestorStore.Sales.Domain
             _orderItems = new List<OrderItem>();
         }
 
-        public void ApplyVoucher(Voucher voucher)
+        public ValidationResult ApplyVoucher(Voucher voucher)
         {
+            var validationResult = voucher.ValidateIfApplicable();
+            if (!validationResult.IsValid)
+            {
+                return validationResult;
+            }
+
             Voucher = voucher;
             IsVoucherUsed = true;
             CalculateOrderAmount();
+
+            return validationResult;
         }
 
         public void CalculateOrderAmount()

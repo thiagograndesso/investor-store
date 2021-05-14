@@ -32,18 +32,21 @@ namespace InvestorStore.WebApp.MVC.Config
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<CatalogContext>();
             
-            // Events
             services.AddScoped<INotificationHandler<ProductBelowInventoryEvent>, ProductEventHandler>();
-            services.AddScoped<INotificationHandler<DraftOrderCreatedEvent>, OrderEventHandler>();
-            services.AddScoped<INotificationHandler<OrderUpdatedEvent>, OrderEventHandler>();
-            services.AddScoped<INotificationHandler<OrderItemAddedEvent>, OrderEventHandler>();
-
+            
             // Sales Domain
             services.AddScoped<IRequestHandler<AddOrderItemCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateOrderItemCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IRequestHandler<RemoveOrderItemCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IRequestHandler<ApplyVoucherOrderCommand, bool>, OrderCommandHandler>();
+            
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderQueries, OrderQueries>();
             services.AddScoped<SalesContext>();
-
+            
+            services.AddScoped<INotificationHandler<DraftOrderCreatedEvent>, OrderEventHandler>();
+            services.AddScoped<INotificationHandler<OrderUpdatedEvent>, OrderEventHandler>();
+            services.AddScoped<INotificationHandler<OrderItemAddedEvent>, OrderEventHandler>();
         }
     }
 }
