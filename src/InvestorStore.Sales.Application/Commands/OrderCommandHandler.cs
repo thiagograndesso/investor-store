@@ -1,8 +1,12 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using InvestorStore.Core.Communication.Mediator;
+using InvestorStore.Core.DomainObjects.Dtos;
+using InvestorStore.Core.Extensions;
 using InvestorStore.Core.Messages;
+using InvestorStore.Core.Messages.CommonMessages.IntegrationEvents;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
 using InvestorStore.Sales.Application.Events;
 using InvestorStore.Sales.Domain;
@@ -14,7 +18,8 @@ namespace InvestorStore.Sales.Application.Commands
         IRequestHandler<AddOrderItemCommand, bool>,
         IRequestHandler<UpdateOrderItemCommand, bool>,
         IRequestHandler<RemoveOrderItemCommand, bool>,
-        IRequestHandler<ApplyVoucherOrderCommand, bool>
+        IRequestHandler<ApplyVoucherOrderCommand, bool>,
+        IRequestHandler<OpenOrderCommand, bool>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMediatorHandler _mediatorHandler;
@@ -62,21 +67,6 @@ namespace InvestorStore.Sales.Application.Commands
             
             order.AddEvent(new OrderItemAddedEvent(order.CustomerId, order.Id, command.ProductId, command.Amount, command.Quantity));
             return await _orderRepository.UnitOfWork.Commit();
-        }
-
-        private bool ValidateCommand(Command command)
-        {
-            if (command.IsValid())
-            {
-                return true;
-            }
-
-            foreach (var error in command.ValidationResult.Errors)
-            {
-                _mediatorHandler.PublishNotification(new DomainNotification(command.MessageType, error.ErrorMessage));
-            }
-
-            return false;
         }
 
         public async Task<bool> Handle(UpdateOrderItemCommand command, CancellationToken cancellationToken)
@@ -173,6 +163,41 @@ namespace InvestorStore.Sales.Application.Commands
             _orderRepository.Update(order);
 
             return await _orderRepository.UnitOfWork.Commit();
+        }
+
+        public async Task<bool> Handle(OpenOrderCommand command, CancellationToken cancellationToken)
+        {
+            if (!ValidateCommand(command))
+            {
+                return false;
+            }
+
+            var order = await _orderRepository.GetOrderDraftByCustomerId(command.CustomerId);
+            order.OpenOrder();
+
+            var items = new List<Item>();
+            order.OrderItems.ForEach(i => items.Add(new Item { Id = i.ProductId, Quantity = i.Quantity }));
+            var orderProducts = new OrderProducts { OrderId = order.Id, Items = items };
+
+            order.AddEvent(new OrderOpenedEvent(order.Id, order.CustomerId, order.TotalAmount, orderProducts,  command.CardName, command.CardNumber, command.CardExpiryDate, command.CardCvvCode));
+
+            _orderRepository.Update(order);
+            return await _orderRepository.UnitOfWork.Commit();
+        }
+        
+        private bool ValidateCommand(Command command)
+        {
+            if (command.IsValid())
+            {
+                return true;
+            }
+
+            foreach (var error in command.ValidationResult.Errors)
+            {
+                _mediatorHandler.PublishNotification(new DomainNotification(command.MessageType, error.ErrorMessage));
+            }
+
+            return false;
         }
     }
 }
