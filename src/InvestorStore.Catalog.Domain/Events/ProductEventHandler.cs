@@ -8,7 +8,7 @@ namespace InvestorStore.Catalog.Domain.Events
 {
     public class ProductEventHandler : 
         INotificationHandler<ProductBelowInventoryEvent>,
-        INotificationHandler<OrderOpenedEvent>
+        INotificationHandler<OrderCreatedEvent>
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryService _inventoryService;
@@ -32,7 +32,7 @@ namespace InvestorStore.Catalog.Domain.Events
             // Send message to external systems, alert personnel, and more.
         }
 
-        public async Task Handle(OrderOpenedEvent message, CancellationToken cancellationToken)
+        public async Task Handle(OrderCreatedEvent message, CancellationToken cancellationToken)
         {
             var result = await _inventoryService.DebitOrderProducts(message.OrderProducts);
 
@@ -42,7 +42,7 @@ namespace InvestorStore.Catalog.Domain.Events
             }
             else
             {
-                await _mediatorHandler.PublishEvent(new OrderInventoryRejectEvent(message.OrderId, message.CustomerId));
+                await _mediatorHandler.PublishEvent(new OrderInventoryRejectedEvent(message.OrderId, message.CustomerId));
             }
         }
     }

@@ -9,11 +9,11 @@ namespace InvestorStore.Catalog.Domain
         public string Description { get; private set; }
         public string Image { get; private set; }
         public bool IsActive { get; private set; }
-        public DateTimeOffset CreatedAt { get; private set; }
+        public DateTimeOffset CreatedAt { get; }
         public decimal Price { get; private set; }
         public int InventoryAmount { get; private set; }
         public Category Category { get; private set; }
-        public Dimensions Dimensions { get; private set; }
+        public Dimensions Dimensions { get; }
         public Guid CategoryId { get; private set; }
         
         protected Product() { }

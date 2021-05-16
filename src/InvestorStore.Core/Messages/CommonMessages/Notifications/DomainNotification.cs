@@ -5,11 +5,11 @@ namespace InvestorStore.Core.Messages.CommonMessages.Notifications
 {
     public class DomainNotification : Message, INotification
     {
-        public DateTimeOffset TimeStamp { get; private set; }
-        public Guid DomainNotificationId { get; private  set; }
-        public string Key { get; private set; }
-        public string Value { get; private set; }
-        public int Version { get; private set; }
+        public DateTimeOffset TimeStamp { get; }
+        public Guid DomainNotificationId { get; }
+        public string Key { get; }
+        public string Value { get; }
+        public int Version { get; }
 
         public DomainNotification(string key, string value)
         {

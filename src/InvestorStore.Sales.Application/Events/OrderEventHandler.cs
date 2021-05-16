@@ -10,7 +10,7 @@ namespace InvestorStore.Sales.Application.Events
         INotificationHandler<OrderItemAddedEvent>,
         INotificationHandler<OrderUpdatedEvent>,
         INotificationHandler<OrderInventoryConfirmedEvent>,
-        INotificationHandler<OrderInventoryRejectEvent>
+        INotificationHandler<OrderInventoryRejectedEvent>
     {
         public Task Handle(DraftOrderCreatedEvent notification, CancellationToken cancellationToken)
         {
@@ -32,7 +32,7 @@ namespace InvestorStore.Sales.Application.Events
             return Task.CompletedTask;
         }
 
-        public Task Handle(OrderInventoryRejectEvent notification, CancellationToken cancellationToken)
+        public Task Handle(OrderInventoryRejectedEvent notification, CancellationToken cancellationToken)
         {
             // TODO: stop order processing and return error message to customer
             return Task.CompletedTask;

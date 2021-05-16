@@ -179,7 +179,7 @@ namespace InvestorStore.Sales.Application.Commands
             order.OrderItems.ForEach(i => items.Add(new Item { Id = i.ProductId, Quantity = i.Quantity }));
             var orderProducts = new OrderProducts { OrderId = order.Id, Items = items };
 
-            order.AddEvent(new OrderOpenedEvent(order.Id, order.CustomerId, order.TotalAmount, orderProducts,  command.CardName, command.CardNumber, command.CardExpiryDate, command.CardCvvCode));
+            order.AddEvent(new OrderCreatedEvent(order.Id, order.CustomerId, order.TotalAmount, orderProducts,  command.CardName, command.CardNumber, command.CardExpiryDate, command.CardCvvCode));
 
             _orderRepository.Update(order);
             return await _orderRepository.UnitOfWork.Commit();

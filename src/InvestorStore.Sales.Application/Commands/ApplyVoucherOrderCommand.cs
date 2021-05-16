@@ -6,9 +6,9 @@ namespace InvestorStore.Sales.Application.Commands
 {
     public class ApplyVoucherOrderCommand : Command
     {
-        public Guid CustomerId { get; private set; }
-        public Guid OrderId { get; private set; }
-        public string VoucherCode { get; private set; }
+        public Guid CustomerId { get; }
+        public Guid OrderId { get; }
+        public string VoucherCode { get; }
 
         public ApplyVoucherOrderCommand(Guid customerId, Guid orderId, string voucherCode)
         {

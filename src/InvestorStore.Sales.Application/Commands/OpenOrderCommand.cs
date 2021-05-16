@@ -6,13 +6,13 @@ namespace InvestorStore.Sales.Application.Commands
 {
     public class OpenOrderCommand : Command
     {
-        public Guid OrderId { get; private set; }
-        public Guid CustomerId { get; private set; }
-        public decimal Total { get; private set; }
-        public string CardName { get; private set; }
-        public string CardNumber { get; private set; }
-        public string CardExpiryDate { get; private set; }
-        public string CardCvvCode { get; private set; }
+        public Guid OrderId { get; }
+        public Guid CustomerId { get; }
+        public decimal Total { get; }
+        public string CardName { get; }
+        public string CardNumber { get; }
+        public string CardExpiryDate { get; }
+        public string CardCvvCode { get; }
 
         public OpenOrderCommand(Guid orderId, Guid customerId, decimal total, string cardName, string cardNumber, string cardExpiryDate, string cardCvvCode)
         {

@@ -6,11 +6,11 @@ namespace InvestorStore.Sales.Application.Commands
 {
     public class AddOrderItemCommand : Command
     {
-        public Guid CustomerId { get; private set; }
-        public Guid ProductId { get; private set; }
-        public string Name { get; private set; }
-        public int Quantity { get; private set; }
-        public decimal Amount { get; private set; }
+        public Guid CustomerId { get; }
+        public Guid ProductId { get; }
+        public string Name { get; }
+        public int Quantity { get; }
+        public decimal Amount { get; }
 
         public AddOrderItemCommand(Guid customerId, Guid productId, string name, int quantity, decimal amount)
         {

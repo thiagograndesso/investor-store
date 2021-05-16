@@ -170,7 +170,7 @@ namespace InvestorStore.Sales.Domain
         
         public void OpenOrder()
         {
-            OrderStatus = OrderStatus.Opened;
+            OrderStatus = OrderStatus.Created;
         }
         
         public void CompleteOrder()

@@ -3,7 +3,7 @@ using InvestorStore.Core.DomainObjects.Dtos;
 
 namespace InvestorStore.Core.Messages.CommonMessages.IntegrationEvents
 {
-    public class OrderInventoryConfirmedEvent : IntegrationEvent
+    public class OrderCreatedEvent : IntegrationEvent
     {
         public Guid OrderId { get; }
         public Guid CustomerId { get; }
@@ -11,10 +11,10 @@ namespace InvestorStore.Core.Messages.CommonMessages.IntegrationEvents
         public OrderProducts OrderProducts { get; }
         public string CardName { get; }
         public string CardNumber { get; }
-        public string ExpiryDate { get; }
-        public string CvvCode { get; }
+        public string CardExpiryDate { get; }
+        public string CardCvvCode { get; }
 
-        public OrderInventoryConfirmedEvent(Guid orderId, Guid customerId, decimal total, OrderProducts orderProducts, string cardName, string cardNumber, string expiryDate, string cvvCode)
+        public OrderCreatedEvent(Guid orderId, Guid customerId, decimal total, OrderProducts orderProducts, string cardName, string cardNumber, string cardExpiryDate, string cardCvvCode)
         {
             OrderId = orderId;
             CustomerId = customerId;
@@ -22,8 +22,8 @@ namespace InvestorStore.Core.Messages.CommonMessages.IntegrationEvents
             OrderProducts = orderProducts;
             CardName = cardName;
             CardNumber = cardNumber;
-            ExpiryDate = expiryDate;
-            CvvCode = cvvCode;
+            CardExpiryDate = cardExpiryDate;
+            CardCvvCode = cardCvvCode;
         }
     }
 }

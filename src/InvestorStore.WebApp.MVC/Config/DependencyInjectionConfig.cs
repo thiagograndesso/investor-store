@@ -5,6 +5,10 @@ using InvestorStore.Catalog.Domain;
 using InvestorStore.Catalog.Domain.Events;
 using InvestorStore.Core.Communication.Mediator;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
+using InvestorStore.Payments.AntiCorruption;
+using InvestorStore.Payments.Business;
+using InvestorStore.Payments.Data;
+using InvestorStore.Payments.Data.Repository;
 using InvestorStore.Sales.Application.Commands;
 using InvestorStore.Sales.Application.Events;
 using InvestorStore.Sales.Application.Queries;
@@ -47,6 +51,14 @@ namespace InvestorStore.WebApp.MVC.Config
             services.AddScoped<INotificationHandler<DraftOrderCreatedEvent>, OrderEventHandler>();
             services.AddScoped<INotificationHandler<OrderUpdatedEvent>, OrderEventHandler>();
             services.AddScoped<INotificationHandler<OrderItemAddedEvent>, OrderEventHandler>();
+            
+            // Payments Domain
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<ICreditCardPaymentFacade, CreditCardPaymentFacade>();
+            services.AddScoped<IPayPalGateway, PayPalGateway>();
+            services.AddScoped<IConfigurationManager, ConfigurationManager>();
+            services.AddScoped<PaymentContext>();
         }
     }
 }
