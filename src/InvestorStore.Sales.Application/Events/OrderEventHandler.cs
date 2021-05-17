@@ -1,6 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
+using InvestorStore.Core.Communication.Mediator;
 using InvestorStore.Core.Messages.CommonMessages.IntegrationEvents;
+using InvestorStore.Sales.Application.Commands;
 using MediatR;
 
 namespace InvestorStore.Sales.Application.Events
@@ -10,8 +12,17 @@ namespace InvestorStore.Sales.Application.Events
         INotificationHandler<OrderItemAddedEvent>,
         INotificationHandler<OrderUpdatedEvent>,
         INotificationHandler<OrderInventoryConfirmedEvent>,
-        INotificationHandler<OrderInventoryRejectedEvent>
+        INotificationHandler<OrderInventoryRejectedEvent>,
+        INotificationHandler<OrderPaymentConfirmedEvent>,
+        INotificationHandler<OrderPaymentRejectedEvent>
     {
+        private readonly IMediatorHandler _mediatorHandler;
+
+        public OrderEventHandler(IMediatorHandler mediatorHandler)
+        {
+            _mediatorHandler = mediatorHandler;
+        }
+        
         public Task Handle(DraftOrderCreatedEvent notification, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
@@ -32,10 +43,19 @@ namespace InvestorStore.Sales.Application.Events
             return Task.CompletedTask;
         }
 
-        public Task Handle(OrderInventoryRejectedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(OrderInventoryRejectedEvent notification, CancellationToken cancellationToken)
         {
-            // TODO: stop order processing and return error message to customer
-            return Task.CompletedTask;
+            await _mediatorHandler.SendCommand(new CancelOrderCommand(notification.OrderId, notification.CustomerId));
+        }
+
+        public async Task Handle(OrderPaymentConfirmedEvent notification, CancellationToken cancellationToken)
+        {
+            await _mediatorHandler.SendCommand(new CompleteOrderCommand(notification.OrderId, notification.CustomerId));
+        }
+
+        public async Task Handle(OrderPaymentRejectedEvent notification, CancellationToken cancellationToken)
+        {
+            await _mediatorHandler.SendCommand(new CancelOrderAndRefillInventoryCommand(notification.OrderId, notification.CustomerId));
         }
     }
 }

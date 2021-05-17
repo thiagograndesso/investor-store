@@ -8,7 +8,8 @@ namespace InvestorStore.Catalog.Domain.Events
 {
     public class ProductEventHandler : 
         INotificationHandler<ProductBelowInventoryEvent>,
-        INotificationHandler<OrderCreatedEvent>
+        INotificationHandler<OrderCreatedEvent>,
+        INotificationHandler<OrderCancelledEvent>
     {
         private readonly IProductRepository _productRepository;
         private readonly IInventoryService _inventoryService;
@@ -44,6 +45,11 @@ namespace InvestorStore.Catalog.Domain.Events
             {
                 await _mediatorHandler.PublishEvent(new OrderInventoryRejectedEvent(message.OrderId, message.CustomerId));
             }
+        }
+
+        public async Task Handle(OrderCancelledEvent message, CancellationToken cancellationToken)
+        {
+            await _inventoryService.RefillOrderProducts(message.OrderProducts);
         }
     }
 }

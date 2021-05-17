@@ -19,7 +19,10 @@ namespace InvestorStore.Sales.Application.Commands
         IRequestHandler<UpdateOrderItemCommand, bool>,
         IRequestHandler<RemoveOrderItemCommand, bool>,
         IRequestHandler<ApplyVoucherOrderCommand, bool>,
-        IRequestHandler<OpenOrderCommand, bool>
+        IRequestHandler<OpenOrderCommand, bool>,
+        IRequestHandler<CompleteOrderCommand, bool>,
+        IRequestHandler<CancelOrderAndRefillInventoryCommand, bool>,
+        IRequestHandler<CancelOrderCommand, bool>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMediatorHandler _mediatorHandler;
@@ -182,6 +185,69 @@ namespace InvestorStore.Sales.Application.Commands
             order.AddEvent(new OrderCreatedEvent(order.Id, order.CustomerId, order.TotalAmount, orderProducts,  command.CardName, command.CardNumber, command.CardExpiryDate, command.CardCvvCode));
 
             _orderRepository.Update(order);
+            return await _orderRepository.UnitOfWork.Commit();
+        }
+
+        public async Task<bool> Handle(CompleteOrderCommand command, CancellationToken cancellationToken)
+        {
+            if (!ValidateCommand(command))
+            {
+                return false;
+            }
+            
+            var order = await _orderRepository.GetById(command.OrderId);
+            if (order is null)
+            {
+                await _mediatorHandler.PublishNotification(new DomainNotification("Order","Order has not been found!"));
+                return false;
+            }
+            
+            order.CompleteOrder();
+            
+            order.AddEvent(new OrderCompletedEvent(command.OrderId));
+            return await _orderRepository.UnitOfWork.Commit();
+        }
+
+        public async Task<bool> Handle(CancelOrderAndRefillInventoryCommand command, CancellationToken cancellationToken)
+        {
+            if (!ValidateCommand(command))
+            {
+                return false;
+            }
+            
+            var order = await _orderRepository.GetById(command.OrderId);
+            if (order == null)
+            {
+                await _mediatorHandler.PublishNotification(new DomainNotification("Order", "Order has not been found!"));
+                return false;
+            }
+
+            var items = new List<Item>();
+            order.OrderItems.ForEach(i => items.Add(new Item { Id = i.ProductId, Quantity = i.Quantity }));
+            var orderProducts = new OrderProducts { OrderId = order.Id, Items = items };
+
+            order.AddEvent(new OrderCancelledEvent(order.Id, order.CustomerId, orderProducts));
+            order.ToDraft();
+
+            return await _orderRepository.UnitOfWork.Commit();
+        }
+        
+        public async Task<bool> Handle(CancelOrderCommand command, CancellationToken cancellationToken)
+        {
+            if (!ValidateCommand(command))
+            {
+                return false;
+            }
+            
+            var order = await _orderRepository.GetById(command.OrderId);
+            if (order == null)
+            {
+                await _mediatorHandler.PublishNotification(new DomainNotification("Order", "Order has not been found!"));
+                return false;
+            }
+            
+            order.ToDraft();
+
             return await _orderRepository.UnitOfWork.Commit();
         }
         

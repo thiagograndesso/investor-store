@@ -4,9 +4,11 @@ using InvestorStore.Catalog.Data.Repositories;
 using InvestorStore.Catalog.Domain;
 using InvestorStore.Catalog.Domain.Events;
 using InvestorStore.Core.Communication.Mediator;
+using InvestorStore.Core.Messages.CommonMessages.IntegrationEvents;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
 using InvestorStore.Payments.AntiCorruption;
 using InvestorStore.Payments.Business;
+using InvestorStore.Payments.Business.Events;
 using InvestorStore.Payments.Data;
 using InvestorStore.Payments.Data.Repository;
 using InvestorStore.Sales.Application.Commands;
@@ -37,12 +39,18 @@ namespace InvestorStore.WebApp.MVC.Config
             services.AddScoped<CatalogContext>();
             
             services.AddScoped<INotificationHandler<ProductBelowInventoryEvent>, ProductEventHandler>();
+            services.AddScoped<INotificationHandler<OrderCreatedEvent>, ProductEventHandler>();
+            services.AddScoped<INotificationHandler<OrderCancelledEvent>, ProductEventHandler>();
             
             // Sales Domain
             services.AddScoped<IRequestHandler<AddOrderItemCommand, bool>, OrderCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateOrderItemCommand, bool>, OrderCommandHandler>();
             services.AddScoped<IRequestHandler<RemoveOrderItemCommand, bool>, OrderCommandHandler>();
             services.AddScoped<IRequestHandler<ApplyVoucherOrderCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IRequestHandler<OpenOrderCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IRequestHandler<CompleteOrderCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IRequestHandler<CancelOrderAndRefillInventoryCommand, bool>, OrderCommandHandler>();
+            services.AddScoped<IRequestHandler<CancelOrderCommand, bool>, OrderCommandHandler>();
             
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderQueries, OrderQueries>();
@@ -51,6 +59,9 @@ namespace InvestorStore.WebApp.MVC.Config
             services.AddScoped<INotificationHandler<DraftOrderCreatedEvent>, OrderEventHandler>();
             services.AddScoped<INotificationHandler<OrderUpdatedEvent>, OrderEventHandler>();
             services.AddScoped<INotificationHandler<OrderItemAddedEvent>, OrderEventHandler>();
+            services.AddScoped<INotificationHandler<OrderInventoryRejectedEvent>, OrderEventHandler>();
+            services.AddScoped<INotificationHandler<OrderPaymentConfirmedEvent>, OrderEventHandler>();
+            services.AddScoped<INotificationHandler<OrderPaymentRejectedEvent>, OrderEventHandler>();
             
             // Payments Domain
             services.AddScoped<IPaymentRepository, PaymentRepository>();
@@ -59,6 +70,8 @@ namespace InvestorStore.WebApp.MVC.Config
             services.AddScoped<IPayPalGateway, PayPalGateway>();
             services.AddScoped<IConfigurationManager, ConfigurationManager>();
             services.AddScoped<PaymentContext>();
+            
+            services.AddScoped<INotificationHandler<OrderInventoryConfirmedEvent>, PaymentsEventHandler>();
         }
     }
 }
