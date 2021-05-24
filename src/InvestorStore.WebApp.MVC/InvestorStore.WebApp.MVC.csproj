@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EventSourcing\EventSourcing.csproj" />
       <ProjectReference Include="..\InvestorStore.Catalog.Application\InvestorStore.Catalog.Application.csproj" />
       <ProjectReference Include="..\InvestorStore.Catalog.Data\InvestorStore.Catalog.Data.csproj" />
       <ProjectReference Include="..\InvestorStore.Core\InvestorStore.Core.csproj" />

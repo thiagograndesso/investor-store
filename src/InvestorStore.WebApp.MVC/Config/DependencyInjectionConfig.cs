@@ -1,3 +1,4 @@
+using EventSourcing;
 using InvestorStore.Catalog.Application.Services;
 using InvestorStore.Catalog.Data;
 using InvestorStore.Catalog.Data.Repositories;
@@ -31,6 +32,9 @@ namespace InvestorStore.WebApp.MVC.Config
             
             // Notifications
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+            
+            // Event Sourcing
+            services.AddSingleton<IEventStoreService, EventStoreService>();
             
             // Catalog Domain
             services.AddScoped<IProductRepository, ProductRepository>();

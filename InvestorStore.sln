@@ -42,6 +42,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestorStore.Payments.Busi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestorStore.Payments.Data", "src\InvestorStore.Payments.Data\InvestorStore.Payments.Data.csproj", "{15299F68-2B5C-47C6-A35D-F3B62022E0E2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{4E69D8E6-180A-4F93-B799-3E27C27AD340}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing", "src\EventSourcing\EventSourcing.csproj", "{880FE484-8A24-4CE4-870E-8D21063A1522}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,7 @@ Global
 		{15A3D244-DE99-468A-97D5-5A2A724F1334} = {3DEAF257-90F1-4798-BBB4-A771A2DD883F}
 		{019D748A-29EB-49A9-AC2C-C9B4403F5673} = {3DEAF257-90F1-4798-BBB4-A771A2DD883F}
 		{15299F68-2B5C-47C6-A35D-F3B62022E0E2} = {3DEAF257-90F1-4798-BBB4-A771A2DD883F}
+		{880FE484-8A24-4CE4-870E-8D21063A1522} = {4E69D8E6-180A-4F93-B799-3E27C27AD340}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{67E9DE93-C809-48DF-93D2-B4A6ABDF9788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -117,5 +122,9 @@ Global
 		{15299F68-2B5C-47C6-A35D-F3B62022E0E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15299F68-2B5C-47C6-A35D-F3B62022E0E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15299F68-2B5C-47C6-A35D-F3B62022E0E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{880FE484-8A24-4CE4-870E-8D21063A1522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{880FE484-8A24-4CE4-870E-8D21063A1522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{880FE484-8A24-4CE4-870E-8D21063A1522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{880FE484-8A24-4CE4-870E-8D21063A1522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
