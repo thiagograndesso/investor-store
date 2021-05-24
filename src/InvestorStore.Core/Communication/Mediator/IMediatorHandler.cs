@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using InvestorStore.Core.Messages;
+using InvestorStore.Core.Messages.CommonMessages.DomainEvents;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
 
 namespace InvestorStore.Core.Communication.Mediator
@@ -9,5 +10,6 @@ namespace InvestorStore.Core.Communication.Mediator
         Task PublishEvent<T>(T @event) where T : Event; 
         Task PublishNotification<T>(T notification) where T : DomainNotification;
         Task<bool> SendCommand<T>(T command) where T : Command;
+        Task PublishDomainEvent<T>(T @event) where T : DomainEvent;
     }
 }

@@ -61,7 +61,7 @@ namespace InvestorStore.Catalog.Domain
             // TODO: configure the inventory amount through settings
             if (product.InventoryAmount < 10)
             {
-                await _mediatorHandler.PublishEvent(new ProductBelowInventoryEvent(product.Id, product.InventoryAmount));
+                await _mediatorHandler.PublishDomainEvent(new ProductBelowInventoryEvent(product.Id, product.InventoryAmount));
             }
 
             _productRepository.Update(product);

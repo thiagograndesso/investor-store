@@ -1,12 +1,16 @@
 using System;
+using MediatR;
 
 namespace InvestorStore.Core.Messages.CommonMessages.DomainEvents
 {
-    public class DomainEvent : Event
+    public abstract class DomainEvent : Message, INotification
     {
-        public DomainEvent(Guid aggregateId)
+        public DateTimeOffset TimeStamp { get; }
+        
+        protected DomainEvent(Guid aggregateId)
         {
             AggregateId = aggregateId;
+            TimeStamp = DateTimeOffset.Now;
         }
     }
 }

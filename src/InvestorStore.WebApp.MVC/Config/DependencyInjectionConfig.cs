@@ -5,6 +5,7 @@ using InvestorStore.Catalog.Data.Repositories;
 using InvestorStore.Catalog.Domain;
 using InvestorStore.Catalog.Domain.Events;
 using InvestorStore.Core.Communication.Mediator;
+using InvestorStore.Core.Data.EventSourcing;
 using InvestorStore.Core.Messages.CommonMessages.IntegrationEvents;
 using InvestorStore.Core.Messages.CommonMessages.Notifications;
 using InvestorStore.Payments.AntiCorruption;
@@ -35,6 +36,7 @@ namespace InvestorStore.WebApp.MVC.Config
             
             // Event Sourcing
             services.AddSingleton<IEventStoreService, EventStoreService>();
+            services.AddSingleton<IEventSourcingRepository, EventSourcingRepository>();
             
             // Catalog Domain
             services.AddScoped<IProductRepository, ProductRepository>();
